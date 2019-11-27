@@ -36,7 +36,6 @@ export class AppController {
   @Post('/download')
   public async getCompressedPhotos(
     @Body() downloadImagesDto: DownloadImagesDto,
-    @Res() response: Response,
   ) {
     const { error } = this.downloadImagesDtoSchema.validate(downloadImagesDto);
 
@@ -52,6 +51,6 @@ export class AppController {
       directoryPath,
     );
 
-    return response.download(zipPath);
+    return zipPath;
   }
 }

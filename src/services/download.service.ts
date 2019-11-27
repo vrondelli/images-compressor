@@ -27,16 +27,8 @@ export class DownloadService {
       return new Promise<string>((resolve, reject) => {
         const fileName = `photo_${index}.png`;
 
-        return requestPromise(url, {
-          headers: {
-            'Content-Type': 'image/png',
-          },
-        })
-          .pipe(
-            fs.createWriteStream(join(directoryPath, fileName), {
-              encoding: 'binary',
-            }),
-          )
+        return requestPromise(url)
+          .pipe(fs.createWriteStream(join(directoryPath, fileName)))
           .on('close', () => resolve(fileName))
           .on('error', error => reject(error));
       });
